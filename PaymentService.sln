@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentServiceDataBase", "PaymentServiceDataBase\PaymentServiceDataBase.csproj", "{EA11E49F-B342-6B66-3708-97CB3FDE6118}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentServiceMain", "PaymentServiceMain\PaymentServiceMain.csproj", "{07DADB3B-969D-CFD5-59F8-76EFCD4FD971}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA11E49F-B342-6B66-3708-97CB3FDE6118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA11E49F-B342-6B66-3708-97CB3FDE6118}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA11E49F-B342-6B66-3708-97CB3FDE6118}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA11E49F-B342-6B66-3708-97CB3FDE6118}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07DADB3B-969D-CFD5-59F8-76EFCD4FD971}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07DADB3B-969D-CFD5-59F8-76EFCD4FD971}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07DADB3B-969D-CFD5-59F8-76EFCD4FD971}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07DADB3B-969D-CFD5-59F8-76EFCD4FD971}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8E41F8B2-3386-4ED7-BB2C-BC3D644F41B0}
+	EndGlobalSection
+EndGlobal
