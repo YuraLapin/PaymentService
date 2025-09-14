@@ -3,4 +3,4 @@ WORKDIR /source
 COPY PaymentService/. .
 RUN dotnet build -o /app
 WORKDIR /app
-ENTRYPOINT ["dotnet", "/app/PaymentServiceMain.dll"]
+ENTRYPOINT ["dotnet", "/app/PaymentService.WebApi.dll"]

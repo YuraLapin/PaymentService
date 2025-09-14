@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OrderServiceDataBase\PaymentServiceDataBase.csproj" />
-    <ProjectReference Include="..\PaymentServiceDataBase\PaymentServiceDataBase.csproj" />
+    <ProjectReference Include="..\PaymentServiceDataBase\PaymentService.DataAccess.Postgres.csproj" />
   </ItemGroup>
 
   <ItemGroup>
