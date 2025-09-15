@@ -1,64 +1,62 @@
+using Mediator;
 using Microsoft.AspNetCore.Mvc;
-using PaymentService.DataAccess.Postgres;
 using PaymentService.DataAccess.Postgres.Models;
-using PaymentService.WebApi.Models;
-using PaymentService.WebApi.Utility;
+using PaymentService.WebApi.UseCases.Commands;
 
 namespace PaymentService.Controllers
 {
     public class PaymentController : Controller
     {
         private readonly ILogger<PaymentController> _logger;
-        private readonly IConfiguration _configuration;
-        private readonly DataBaseService _dbService;
-        private readonly InputChecker _inputChecker;
+        private readonly IMediator _mediator;
 
         public PaymentController
         (
             ILogger<PaymentController> logger,
-            DataBaseService dbService,
-            IConfiguration configuration,
-            InputChecker inputChecker
+            IMediator mediator
         )
         {
             _logger = logger;
-            _configuration = configuration;
-            _dbService = dbService;
-            _inputChecker = inputChecker;
+            _mediator = mediator;
         }
 
         [HttpPost("payments/create")]
         public async Task<IActionResult> AddPayment(WebApi.Models.Payment payment, CancellationToken ct)
         {
-            string? errorMessage = _inputChecker.CheckPayment(payment);
-            if (errorMessage != null) return BadRequest(errorMessage);
+            var res = await _mediator.Send(new AddPaymentCommand(payment), ct);
 
-            var newId = await _dbService.AddPayment(payment.OrderId, ct);
-
-            if (ct.IsCancellationRequested)
+            if (res is string)
             {
-                await _dbService.DeletePayment(newId);
-                return StatusCode(499);
+                return BadRequest(res);
+            }
+
+            return Json((long)res);
+        }
+
+        [HttpPut("payments/updateStatus/{paymentId:long}/{status:bool}")]
+        public async Task<IActionResult> UpdatePayment(long paymentId, bool status, CancellationToken ct)
+        {
+            var res = await _mediator.Send(new UpdatePaymentCommand(paymentId, status), ct);
+
+            if (res is string)
+            {
+                return BadRequest(res);
             }
 
             return Ok();
         }
 
-        [HttpGet("payments/{id:int}")]
-        public async Task<IActionResult> GetPayment(long orderId, CancellationToken ct)
+        [HttpGet("payments/get/{paymentId:long}")]
+        public async Task<IActionResult> GetPayment(long paymentId, CancellationToken ct)
         {
-            if (ct.IsCancellationRequested) return StatusCode(499);
+            var res = await _mediator.Send(new GetPaymentCommand(paymentId), ct);
 
-            string? errorMessage = _inputChecker.CheckOrderId(orderId);
-            if (errorMessage != null) return BadRequest(errorMessage);
-
-            DataAccess.Postgres.Models.Payment? res = _dbService.GetPayment(orderId);
-            if (res == null)
+            if (res is string)
             {
-                return Json(false);
+                return BadRequest(res);
             }
 
-            return Json(res.Status);
+            return Json((Payment)res);
         }
     }
 }

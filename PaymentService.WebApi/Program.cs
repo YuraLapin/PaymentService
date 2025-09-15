@@ -1,22 +1,23 @@
+using Mediator;
 using Microsoft.EntityFrameworkCore;
-using PaymentServiceDataBase;
-using OrderServiceMain.Refit;
-using Refit;
-using OrderServiceMain.Utility;
+using PaymentService.DataAccess.Postgres;
+using PaymentService.WebApi.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.AddConsole();
 
 string connString = builder.Configuration["ConnectionStrings:Postgres"];
-//string notificationAddress = builder.Configuration["Addresses:PaymentService"];
 
 // Add services to the container.
 builder.Services.AddScoped<DataBaseService>();
 builder.Services.AddSingleton<InputChecker>();
 builder.Services.AddDbContext<DataBaseContext>(options => options.UseNpgsql(connString));
-//builder.Services.AddRefitClient<INotificationClient>().ConfigureHttpClient(c => c.BaseAddress = new Uri(paymentAddress));
 builder.Services.AddControllersWithViews();
+builder.Services.AddMediator((MediatorOptions options) =>
+{
+    options.ServiceLifetime = ServiceLifetime.Scoped;
+});
 
 var app = builder.Build();
 
