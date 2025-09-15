@@ -21,7 +21,7 @@ namespace PaymentService.Controllers
         }
 
         [HttpPost("payments/create")]
-        public async Task<IActionResult> AddPayment(WebApi.Models.Payment payment, CancellationToken ct)
+        public async Task<IActionResult> AddPayment([FromBody] WebApi.Models.Payment payment, CancellationToken ct)
         {
             var res = await _mediator.Send(new AddPaymentCommand(payment), ct);
 
