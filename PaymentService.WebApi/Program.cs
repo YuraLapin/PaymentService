@@ -1,7 +1,8 @@
+using FluentValidation;
 using Mediator;
 using Microsoft.EntityFrameworkCore;
 using PaymentService.DataAccess.Postgres;
-using PaymentService.WebApi.Utility;
+using PaymentService.WebApi.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,9 +11,9 @@ builder.Logging.AddConsole();
 string connString = builder.Configuration["ConnectionStrings:Postgres"];
 
 // Add services to the container.
-builder.Services.AddSingleton<InputChecker>();
 builder.Services.AddDbContext<DataBaseContext>(options => options.UseNpgsql(connString));
 builder.Services.AddControllersWithViews();
+builder.Services.AddValidatorsFromAssemblyContaining<PaymentValidator>();
 builder.Services.AddMediator((MediatorOptions options) =>
 {
     options.ServiceLifetime = ServiceLifetime.Scoped;

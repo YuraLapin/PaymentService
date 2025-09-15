@@ -1,16 +1,17 @@
-﻿using Mediator;
+﻿using FluentValidation;
+using Mediator;
 using PaymentService.DataAccess.Postgres;
+using PaymentService.WebApi.Models;
 using PaymentService.WebApi.UseCases.Commands;
-using PaymentService.WebApi.Utility;
 
 namespace OrderService.WebApi.UseCases.Handlers
 {
-    public class AddPaymentHandler(DataBaseContext db, InputChecker inputChecker) : IRequestHandler<AddPaymentCommand, Object>
+    public class AddPaymentHandler(DataBaseContext db, IValidator<Payment> validator) : IRequestHandler<AddPaymentCommand, Object>
     {
         public async ValueTask<Object> Handle(AddPaymentCommand command, CancellationToken ct)
         {
-            string? errorMessage = inputChecker.CheckPayment(command.Payment);
-            if (errorMessage != null) return errorMessage;
+            var validationResult = await validator.ValidateAsync(command.Payment, ct);
+            if (!validationResult.IsValid) return validationResult.ToString();
 
             var newPayment = new PaymentService.DataAccess.Postgres.Models.Payment()
             {
