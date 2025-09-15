@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PaymentService.DataAccess.Postgres.Models;
+using PaymentService.DataAccess.Postgres.Configurations;
 
 namespace PaymentService.DataAccess.Postgres
 {
@@ -10,6 +11,12 @@ namespace PaymentService.DataAccess.Postgres
         public DataBaseContext(DbContextOptions<DataBaseContext> options): base(options)
         {
             Database.EnsureCreated();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new PaymentConfiguration());
         }
     }
 }

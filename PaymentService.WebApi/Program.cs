@@ -10,7 +10,6 @@ builder.Logging.AddConsole();
 string connString = builder.Configuration["ConnectionStrings:Postgres"];
 
 // Add services to the container.
-builder.Services.AddScoped<DataBaseService>();
 builder.Services.AddSingleton<InputChecker>();
 builder.Services.AddDbContext<DataBaseContext>(options => options.UseNpgsql(connString));
 builder.Services.AddControllersWithViews();
