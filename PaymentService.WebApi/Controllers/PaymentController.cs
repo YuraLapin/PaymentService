@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using PaymentServiceDataBase;
-using PaymentServiceDataBase.Models;
-using OrderServiceMain.Refit;
-using OrderServiceMain.Utility;
+using PaymentService.DataAccess.Postgres;
+using PaymentService.DataAccess.Postgres.Models;
+using PaymentService.WebApi.Models;
+using PaymentService.WebApi.Utility;
 
 namespace PaymentService.Controllers
 {
@@ -27,20 +27,13 @@ namespace PaymentService.Controllers
             _inputChecker = inputChecker;
         }
 
-        public IActionResult Index()
+        [HttpPost("payments/create")]
+        public async Task<IActionResult> AddPayment(WebApi.Models.Payment payment, CancellationToken ct)
         {
-            return View();
-        }
-
-        [HttpPost("payments")]
-        public async Task<IActionResult> AddPayment(int orderId, CancellationToken ct)
-        {
-            //_logger.LogWarning($"Order sum{sum} name{clientName}");
-
-            string? errorMessage = _inputChecker.CheckOrderId(orderId);
+            string? errorMessage = _inputChecker.CheckPayment(payment);
             if (errorMessage != null) return BadRequest(errorMessage);
 
-            var newId = await _dbService.AddPayment(orderId, ct);
+            var newId = await _dbService.AddPayment(payment.OrderId, ct);
 
             if (ct.IsCancellationRequested)
             {
@@ -52,28 +45,20 @@ namespace PaymentService.Controllers
         }
 
         [HttpGet("payments/{id:int}")]
-        public async Task<IActionResult> GetPayment(int orderId, CancellationToken ct)
+        public async Task<IActionResult> GetPayment(long orderId, CancellationToken ct)
         {
             if (ct.IsCancellationRequested) return StatusCode(499);
 
             string? errorMessage = _inputChecker.CheckOrderId(orderId);
             if (errorMessage != null) return BadRequest(errorMessage);
 
-            Payment? res = _dbService.GetPayment(orderId);
+            DataAccess.Postgres.Models.Payment? res = _dbService.GetPayment(orderId);
             if (res == null)
             {
-                //_logger.LogWarning($"No order { id }");
                 return Json(false);
             }
 
-            //_logger.LogWarning($"Order { id }");
-            return Json(res.IsComplete);
+            return Json(res.Status);
         }
-
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error()
-        //{
-        //    return Error();
-        //}
     }
 }

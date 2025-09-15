@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PaymentServiceDataBase.Models
+namespace PaymentService.DataAccess.Postgres.Models
 {
     public class Payment
     {
         [Key]
-        public int Id { get; set; }
-        public int OrderId { get; set; }
-        public bool IsComplete { get; set; }
+        public long Id { get; set; }
+        public long OrderId { get; set; }
+        public bool Status { get; set; }
     }
 }
