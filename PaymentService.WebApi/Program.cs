@@ -3,6 +3,7 @@ using Mediator;
 using Microsoft.EntityFrameworkCore;
 using PaymentService.DataAccess.Postgres;
 using PaymentService.WebApi.Validators;
+using PaymentService.WebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Logging.AddConsole();
 string connString = builder.Configuration["ConnectionStrings:Postgres"];
 
 // Add services to the container.
+builder.Services.AddSingleton<ProducerService>();
 builder.Services.AddDbContext<DataBaseContext>(options => options.UseNpgsql(connString));
 builder.Services.AddControllersWithViews();
 builder.Services.AddValidatorsFromAssemblyContaining<PaymentValidator>();
