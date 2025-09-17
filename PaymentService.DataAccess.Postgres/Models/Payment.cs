@@ -2,6 +2,9 @@
 
 namespace PaymentService.DataAccess.Postgres.Models
 {
+    // <summary>
+    // Модель записи об оплате, хранящейся в БД
+    // </summary>
     public class Payment
     {
         [Key]
