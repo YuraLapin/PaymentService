@@ -6,7 +6,7 @@ using PaymentService.WebApi.UseCases.Commands;
 namespace PaymentService.Controllers
 {
     // <summary>
-    // Контроллер для адреса /payments
+    // РљРѕРЅС‚СЂРѕР»Р»РµСЂ РґР»СЏ Р°РґСЂРµСЃР° /payments
     // </summary>
     [Route("payments")]
     public class PaymentController : Controller
@@ -25,17 +25,17 @@ namespace PaymentService.Controllers
         }
 
         // <summary>
-        // Записывает данные об оплате в БД
+        // Р—Р°РїРёСЃС‹РІР°РµС‚ РґР°РЅРЅС‹Рµ РѕР± РѕРїР»Р°С‚Рµ РІ Р‘Р”
         // </summary>
         // <returns>
-        // Id созданной записи
+        // Id СЃРѕР·РґР°РЅРЅРѕР№ Р·Р°РїРёСЃРё
         // </returns>
         // <param name="payment">
-        // Данные о добавляемой оплате
-        // Принимается в теле запроса
+        // Р”Р°РЅРЅС‹Рµ Рѕ РґРѕР±Р°РІР»СЏРµРјРѕР№ РѕРїР»Р°С‚Рµ
+        // РџСЂРёРЅРёРјР°РµС‚СЃСЏ РІ С‚РµР»Рµ Р·Р°РїСЂРѕСЃР°
         // </param>
         // <param name="ct">
-        // Токен отмены
+        // РўРѕРєРµРЅ РѕС‚РјРµРЅС‹
         // </param>
         [HttpPost("create")]
         public async Task<IActionResult> AddPayment([FromBody] WebApi.Models.Payment payment, CancellationToken ct)
@@ -51,16 +51,16 @@ namespace PaymentService.Controllers
         }
 
         // <summary>
-        // Обновляет данные о заданной записи об оплате в БД
+        // РћР±РЅРѕРІР»СЏРµС‚ РґР°РЅРЅС‹Рµ Рѕ Р·Р°РґР°РЅРЅРѕР№ Р·Р°РїРёСЃРё РѕР± РѕРїР»Р°С‚Рµ РІ Р‘Р”
         // </summary>
         // <param name="paymentId">
-        // Id обновляемой записи об оплате
+        // Id РѕР±РЅРѕРІР»СЏРµРјРѕР№ Р·Р°РїРёСЃРё РѕР± РѕРїР»Р°С‚Рµ
         // </param>
         // <param name="status">
-        // Новое значение параметра status
+        // РќРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РїР°СЂР°РјРµС‚СЂР° status
         // </param>
         // <param name="ct">
-        // Токен отмены
+        // РўРѕРєРµРЅ РѕС‚РјРµРЅС‹
         // </param>
         [HttpPut("updateStatus/{paymentId:long}/{status:bool}")]
         public async Task<IActionResult> UpdatePayment(long paymentId, bool status, CancellationToken ct)
@@ -76,16 +76,16 @@ namespace PaymentService.Controllers
         }
 
         // <summary>
-        // Получает запись об оплате из БД
+        // РџРѕР»СѓС‡Р°РµС‚ Р·Р°РїРёСЃСЊ РѕР± РѕРїР»Р°С‚Рµ РёР· Р‘Р”
         // </summary>
         // <param name="paymentId">
-        // Id требуемой записи об оплате
+        // Id С‚СЂРµР±СѓРµРјРѕР№ Р·Р°РїРёСЃРё РѕР± РѕРїР»Р°С‚Рµ
         // </param>
         // <returns>
-        // Требуемую запись об оплате
+        // РўСЂРµР±СѓРµРјСѓСЋ Р·Р°РїРёСЃСЊ РѕР± РѕРїР»Р°С‚Рµ
         // </returns>
         // <param name="ct">
-        // Токен отмены
+        // РўРѕРєРµРЅ РѕС‚РјРµРЅС‹
         // </param>
         [HttpGet("get/{paymentId:long}")]
         public async Task<IActionResult> GetPayment(long paymentId, CancellationToken ct)
