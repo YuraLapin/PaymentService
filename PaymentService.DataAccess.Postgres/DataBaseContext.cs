@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PaymentService.DataAccess.Postgres.Models;
 using PaymentService.DataAccess.Postgres.Configurations;
 
