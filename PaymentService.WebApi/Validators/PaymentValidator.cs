@@ -3,9 +3,9 @@ using PaymentService.WebApi.Models;
 
 namespace PaymentService.WebApi.Validators
 {
-    // <summary>
-    // FluentValidation валидатор для проверки Payment
-    // </summary>
+    /// <summary>
+    /// FluentValidation валидатор для проверки Payment
+    /// </summary>
     public class PaymentValidator: AbstractValidator<Payment>
     {
         public PaymentValidator()

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc.Testing;
+п»їusing Microsoft.AspNetCore.Mvc.Testing;
 using PaymentService.Test.Refit;
 using PaymentService.WebApi;
 using Refit;
@@ -6,9 +6,9 @@ using Testcontainers.PostgreSql;
 
 namespace PaymentService.Test
 {
-    // <summary>
-    // Тесты для сервиса оплаты
-    // </summary>
+    /// <summary>
+    /// РўРµСЃС‚С‹ РґР»СЏ СЃРµСЂРІРёСЃР° РѕРїР»Р°С‚С‹
+    /// </summary>
     [TestFixture]
     public class PaymentServiceTests
     {
@@ -16,9 +16,9 @@ namespace PaymentService.Test
         private WebApplicationFactory<Program> _webApplicationFactory;
         private IPaymentApi _paymentApi;
 
-        // <summary>
-        // Разворачивание контейнеров с необходимыми сервисами
-        // </summary>
+        /// <summary>
+        /// Р Р°Р·РІРѕСЂР°С‡РёРІР°РЅРёРµ РєРѕРЅС‚РµР№РЅРµСЂРѕРІ СЃ РЅРµРѕР±С…РѕРґРёРјС‹РјРё СЃРµСЂРІРёСЃР°РјРё
+        /// </summary>
         [OneTimeSetUp]
         public async Task Setup()
         {
@@ -29,9 +29,9 @@ namespace PaymentService.Test
             _paymentApi = RestService.For<IPaymentApi>(httpClient);
         }
 
-        // <summary>
-        // Тесты для создания записи об оплате
-        // </summary>
+        /// <summary>
+        /// РўРµСЃС‚С‹ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ Р·Р°РїРёСЃРё РѕР± РѕРїР»Р°С‚Рµ
+        /// </summary>
         [Test]
         [TestCase(1, 2.0, "OK")]
         [TestCase(-1, 2.0, "BadRequest")]
@@ -50,9 +50,9 @@ namespace PaymentService.Test
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        // <summary>
-        // Тесты создания, а затем получения созданной записи об оплате
-        // </summary>
+        /// <summary>
+        /// РўРµСЃС‚С‹ СЃРѕР·РґР°РЅРёСЏ, Р° Р·Р°С‚РµРј РїРѕР»СѓС‡РµРЅРёСЏ СЃРѕР·РґР°РЅРЅРѕР№ Р·Р°РїРёСЃРё РѕР± РѕРїР»Р°С‚Рµ
+        /// </summary>
         [Test]
         [TestCase(10, 5.0)]
         [TestCase(902, 125.23210)]
@@ -81,9 +81,9 @@ namespace PaymentService.Test
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        // <summary>
-        // Тесты получения несуществующей записи об оплате
-        // </summary>
+        /// <summary>
+        /// РўРµСЃС‚С‹ РїРѕР»СѓС‡РµРЅРёСЏ РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰РµР№ Р·Р°РїРёСЃРё РѕР± РѕРїР»Р°С‚Рµ
+        /// </summary>
         [Test]
         [TestCase(-1)]
         [TestCase(92929)]
@@ -97,15 +97,15 @@ namespace PaymentService.Test
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        // <summary>
-        // Тесты создания, изменения и получения записи об оплате
-        // </summary>
+        /// <summary>
+        /// РўРµСЃС‚С‹ СЃРѕР·РґР°РЅРёСЏ, РёР·РјРµРЅРµРЅРёСЏ Рё РїРѕР»СѓС‡РµРЅРёСЏ Р·Р°РїРёСЃРё РѕР± РѕРїР»Р°С‚Рµ
+        /// </summary>
         [Test]
         [TestCase(10, 5.0, true)]
         [TestCase(902, 125.23210, false)]
         public async Task UpdatePaymentTest(long orderId, decimal price, bool status)
         {
-            // Добавление записи
+            // Р”РѕР±Р°РІР»РµРЅРёРµ Р·Р°РїРёСЃРё
             var newPayment = new WebApi.Models.Payment()
             {
                 OrderId = orderId,
@@ -123,19 +123,19 @@ namespace PaymentService.Test
                 Status = status,
             };
 
-            // Обновление записи
+            // РћР±РЅРѕРІР»РµРЅРёРµ Р·Р°РїРёСЃРё
             await _paymentApi.UpdatePayment(addedId, status);
 
-            // Получение записи
+            // РџРѕР»СѓС‡РµРЅРёРµ Р·Р°РїРёСЃРё
             ApiResponse<DataAccess.Postgres.Models.Payment> getPaymentRes = await _paymentApi.GetPayment(addedId);
             DataAccess.Postgres.Models.Payment actual = getPaymentRes.Content;
 
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        // <summary>
-        // Тесты изменения не существующей записи об оплате
-        // </summary>
+        /// <summary>
+        /// РўРµСЃС‚С‹ РёР·РјРµРЅРµРЅРёСЏ РЅРµ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµР№ Р·Р°РїРёСЃРё РѕР± РѕРїР»Р°С‚Рµ
+        /// </summary>
         [Test]
         [TestCase(-1, true)]
         [TestCase(92929, false)]
@@ -149,9 +149,9 @@ namespace PaymentService.Test
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        // <summary>
-        // Сворачивание контейнеров
-        // </summary>
+        /// <summary>
+        /// РЎРІРѕСЂР°С‡РёРІР°РЅРёРµ РєРѕРЅС‚РµР№РЅРµСЂРѕРІ
+        /// </summary>
         [OneTimeTearDown]
         public async Task Dispose()
         {

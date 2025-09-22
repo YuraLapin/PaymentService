@@ -1,6 +1,4 @@
 ﻿using Refit;
-using PaymentService.WebApi.Models;
-using PaymentService.DataAccess.Postgres.Models;
 
 namespace PaymentService.Test.Refit
 {

@@ -1,12 +1,12 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PaymentService.DataAccess.Postgres.Models;
 using PaymentService.DataAccess.Postgres.Configurations;
 
 namespace PaymentService.DataAccess.Postgres
 {
-    // <summary>
-    // Контекст базы данных
-    // </summary>
+    /// <summary>
+    /// Контекст базы данных
+    /// </summary>
     public class DataBaseContext: DbContext
     {
         public DbSet<Payment> Payments { get; set; }

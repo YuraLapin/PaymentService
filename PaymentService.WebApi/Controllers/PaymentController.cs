@@ -1,13 +1,13 @@
-using Mediator;
+﻿using Mediator;
 using Microsoft.AspNetCore.Mvc;
 using PaymentService.DataAccess.Postgres.Models;
 using PaymentService.WebApi.UseCases.Commands;
 
 namespace PaymentService.Controllers
 {
-    // <summary>
-    // Контроллер для адреса /payments
-    // </summary>
+    /// <summary>
+    /// Контроллер для адреса /payments
+    /// </summary>
     [Route("payments")]
     public class PaymentController : Controller
     {
@@ -24,19 +24,19 @@ namespace PaymentService.Controllers
             _mediator = mediator;
         }
 
-        // <summary>
-        // Записывает данные об оплате в БД
-        // </summary>
-        // <returns>
-        // Id созданной записи
-        // </returns>
-        // <param name="payment">
-        // Данные о добавляемой оплате
-        // Принимается в теле запроса
-        // </param>
-        // <param name="ct">
-        // Токен отмены
-        // </param>
+        /// <summary>
+        /// Записывает данные об оплате в БД
+        /// </summary>
+        /// <returns>
+        /// Id созданной записи
+        /// </returns>
+        /// <param name="payment">
+        /// Данные о добавляемой оплате
+        /// Принимается в теле запроса
+        /// </param>
+        /// <param name="ct">
+        /// Токен отмены
+        /// </param>
         [HttpPost("create")]
         public async Task<IActionResult> AddPayment([FromBody] WebApi.Models.Payment payment, CancellationToken ct)
         {
