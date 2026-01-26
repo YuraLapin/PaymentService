@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "PaymentService.DataAccess.Postgres": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:64646;http://localhost:64647"
+    }
+  }
+}
